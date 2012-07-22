@@ -21,7 +21,7 @@ ChatFrame_AddMessageEventFilter("CHAT_MSG_EMOTE", filter)
 
 local name = ""
 
-SlashCmdList.TALK = function(msg)
+SlashCmdList.NPCSAY = function(msg)
 	if UnitName("target") then
 		SendChatMessage("[npc:"..UnitName("target").."] "..msg, "SAY")
 	elseif name ~= "" then
@@ -31,7 +31,7 @@ SlashCmdList.TALK = function(msg)
 	end
 end
 
-SLASH_TALK1 = "/talk"
+SLASH_NPCSAY1 = "/npcsay"
 
 SlashCmdList.NPCEMOTE = function(msg)
 	if UnitName("target") then
@@ -62,7 +62,7 @@ SlashCmdList.NPCTALK = function(msg)
 		print("npcTalk: memory cleared.")
 	else
 		print("npcTalk v."..GetAddOnMetadata("npcTalk", "Version"))
-		print("|cffaaaaaa/talk|r |cff00c2ffmessage|r: lets your target speak the message.")
+		print("|cffaaaaaa/npcsay|r |cff00c2ffmessage|r: lets your target speak the message.")
 		print("(|cffaaaaaa/npce|r, |cffaaaaaa/npcem|r, |cffaaaaaa/npcme|r, |cffaaaaaa/npcemote|r) |cff00c2ffemote|r: lets your target perform the emote.")
 		print("|cffaaaaaa/npctalk|r |cff00ffc2set|r |cff00c2ffname|r: Use the NPC name (existing or imaginary) when no target is selected.")
 		print("|cffaaaaaa/npctalk|r |cff00c2ffclear|r: Clear the memorised NPC name.")
@@ -85,7 +85,7 @@ title:SetText("npcTalk v."..GetAddOnMetadata("npcTalk", "Version"))
 local desc = gui:CreateFontString(nil, "ARTWORK", "GameFontHighlight")
 desc:SetJustifyH("LEFT")
 desc:SetPoint("TOP", 0, -80)
-desc:SetText("|cffaaaaaa/talk|r |cff00c2ffmessage|r: lets your target speak the message.\n(|cffaaaaaa/npce|r, |cffaaaaaa/npcem|r, |cffaaaaaa/npcme|r, |cffaaaaaa/npcemote|r) |cff00c2ffemote|r: lets your target perform the emote.\n|cffaaaaaa/npctalk|r |cff00ffc2set|r |cff00c2ffname|r: Use the NPC name (existing or imaginary) when no target is selected.\n|cffaaaaaa/npctalk|r |cff00c2ffclear|r: Clear the memorised NPC name.\n|cffaaaaaa/npctalk|r: bring up these instructions.")
+desc:SetText("|cffaaaaaa/npcsay|r |cff00c2ffmessage|r: lets your target speak the message.\n(|cffaaaaaa/npce|r, |cffaaaaaa/npcem|r, |cffaaaaaa/npcme|r, |cffaaaaaa/npcemote|r) |cff00c2ffemote|r: lets your target perform the emote.\n|cffaaaaaa/npctalk|r |cff00ffc2set|r |cff00c2ffname|r: Use the NPC name (existing or imaginary) when no target is selected.\n|cffaaaaaa/npctalk|r |cff00c2ffclear|r: Clear the memorised NPC name.\n|cffaaaaaa/npctalk|r: bring up these instructions.")
 
 local credits = gui:CreateFontString(nil, "ARTWORK", "GameFontHighlight")
 credits:SetPoint("TOP", desc, "BOTTOM", 0, -54)
