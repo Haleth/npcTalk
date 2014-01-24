@@ -1,4 +1,4 @@
-## Interface: 50200
+## Interface: 50400
 ## Title: npcTalk
 ## Notes: Roleplaying addon to make players seem able to make NPCs talk and perform emotes.
 ## Author: Haleth/Freethinker
