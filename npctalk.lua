@@ -28,16 +28,17 @@ local filter = function(self, event, msg, author, ...)
 				bubblesWereEnabled = false
 			end
 
-			DEFAULT_CHAT_FRAME:AddMessage(gsub(msg, "%[npc: ?(.*)%]", "%1 says:"), 1, 1, .62)
+			self:AddMessage(gsub(msg, "%[npc: ?(.*)%]", "%1 says:"), 1, 1, .62)
 
 			if bubblesWereEnabled then
 				f:SetScript("OnUpdate", bubbleOnUpdate)
 			end
+
 			return true
 		end
 	else
 		if msg:find("%[npc: ?.*%]") then
-			DEFAULT_CHAT_FRAME:AddMessage(gsub(msg, "%[npc: ?(.*)%]", "%1"), 1, .5, .25)
+			self:AddMessage(gsub(msg, "%[npc: ?(.*)%]", "%1"), 1, .5, .25)
 			return true
 		end
 	end
