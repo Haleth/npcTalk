@@ -19,6 +19,9 @@ SlashCmdList.NPCTALK = function(msg)
 		if args then
 			send.saved.name = args
 			print("npcTalk: '"..send.saved.name.."' memorised.")
+		elseif UnitName("target") then
+			send.saved.name = UnitName("target")
+			print("npcTalk: '"..send.saved.name.."' memorised.")
 		else
 			print("npcTalk: no name specified.")
 		end
