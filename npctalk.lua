@@ -1,57 +1,16 @@
--- timer to turn chat bubbles back on if they were initially enabled
-
-local f = CreateFrame("Frame")
-
-local last = 0
-
-local bubbleOnUpdate = function(self, elapsed)
-	last = last + elapsed
-
-	if last >= .01 then
-		self:SetScript("OnUpdate", nil)
-		last = 0
-		SetCVar("chatBubbles", 1)
-	end
-end
-
 -- add the filter
 
-local bubblesWereEnabled -- need this to know whether we need to re-enable them after disabling
-
 local filter = function(self, event, msg, author, ...)
-	if event == "CHAT_MSG_SAY" then
-		if msg:find("%[npc: ?.*%]") then
-			if GetCVar("chatBubbles") == "1" or bubblesWereEnabled == true then
-				bubblesWereEnabled = true
-				SetCVar("chatBubbles", 0)
-			else
-				bubblesWereEnabled = false
-			end
-
-			self:AddMessage(gsub(msg, "%[npc: ?(.*)%]", "%1 says:"), 1, 1, .62)
-
-			if bubblesWereEnabled then
-				f:SetScript("OnUpdate", bubbleOnUpdate)
-			end
-
-			return true
-		end
-	else
-		if msg:find("%[npc: ?.*%]") then
-			self:AddMessage(gsub(msg, "%[npc: ?(.*)%]", "%1"), 1, .5, .25)
-			return true
-		end
+	if msg:find("%[NPC: ?.*%]") then
+		self:AddMessage(gsub(msg, "%[NPC: ?(.*)%]", "%1 says:"), 1, 1, .62)
+		return true
+	elseif msg:find("%[npc: ?.*%]") then
+		self:AddMessage(gsub(msg, "%[npc: ?(.*)%]", "%1"), 1, .5, .25)
+		return true
 	end
 end
 
-ChatFrame_AddMessageEventFilter("CHAT_MSG_SAY", filter)
 ChatFrame_AddMessageEventFilter("CHAT_MSG_EMOTE", filter)
-
--- need this in case user changes chat bubble option. If they use slash command to set it, tough luck
-
-InterfaceOptionsSocialPanelChatBubbles:HookScript("OnClick", function()
-	bubblesWereEnabled = GetCVar("chatBubbles") == "1" and true or false
-end)
 
 -- slash commands with shortcuts instead of long format
 
@@ -59,9 +18,9 @@ local savedName = ""
 
 SlashCmdList.NPCSAY = function(msg)
 	if UnitName("target") then
-		SendChatMessage("[npc:"..UnitName("target").."] "..msg, "SAY")
+		SendChatMessage("[NPC:"..UnitName("target").."] "..msg, "EMOTE")
 	elseif savedName ~= "" then
-		SendChatMessage("[npc:"..savedName.."] "..msg, "SAY")
+		SendChatMessage("[NPC:"..savedName.."] "..msg, "EMOTE")
 	else
 		print("npcTalk: You have no target. No message sent.")
 	end
@@ -135,4 +94,4 @@ desc:SetText("|cffaaaaaa/npcs|r, |cffaaaaaa/npcsay|r |cff00c2ffmessage|r: lets y
 
 local credits = gui:CreateFontString(nil, "ARTWORK", "GameFontHighlight")
 credits:SetPoint("TOP", desc, "BOTTOM", 0, -54)
-credits:SetText("npcTalk by Freethinker @ Steamwheedle Cartel - EU / Haleth on wowinterface.com")
+credits:SetText("npcTalk by Iyadriel @ Argent Dawn - EU / Haleth on wowinterface.com")
