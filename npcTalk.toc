@@ -2,7 +2,7 @@
 ## Title: npcTalk
 ## Notes: Lets players send fake NPC messages for other users of this addon.
 ## Author: Haleth/Iyadriel
-## Version: 1.3.1
+## Version: 2.0
 
 npctalk.lua
 send.lua
