@@ -1,4 +1,4 @@
-## Interface: 60200
+## Interface: 70000
 ## Title: npcTalk
 ## Notes: Lets players send fake NPC messages for other users of this addon.
 ## Author: Haleth/Iyadriel
